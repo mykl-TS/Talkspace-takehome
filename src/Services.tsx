@@ -1,44 +1,52 @@
-import { AvatarOptions, OverrideOption, CustomizationOptions } from './Types'
+import { AvatarOptions, OverrideOption, CustomizationOptions } from "./Types";
 
 // construct URLs for avatars
-export const buildURL = (avatarOptions: AvatarOptions | undefined, overrideOption?: OverrideOption) => {
-  if (!avatarOptions) return "https://api.dicebear.com/9.x/bottts/svg"
-  const _O = { ...avatarOptions }
-  if (overrideOption) _O[overrideOption.name] = overrideOption.value
-  const baseURL = "https://api.dicebear.com/9.x/bottts/svg?"
+export const buildURL = (
+  avatarOptions: AvatarOptions | undefined,
+  overrideOption?: OverrideOption
+) => {
+  if (!avatarOptions) return "https://api.dicebear.com/9.x/bottts/svg";
+  const _O = { ...avatarOptions };
+  if (overrideOption) _O[overrideOption.name] = overrideOption.value;
+  const baseURL = "https://api.dicebear.com/9.x/bottts/svg?";
   const queryParams = [
-    `baseColor=${_O.baseColor}`, 
+    `baseColor=${_O.baseColor}`,
     `backgroundColor=${_O.backgroundColor}`,
     `eyes=${_O.eyes}`,
     `face=${_O.face}`,
     `mouth=${_O.mouth}`,
     `sides=${_O.sides}`,
     `texture=${_O.texture}`,
-    `top=${_O.top}`,]
-  const queryString= queryParams.join("&")
-  return baseURL + queryString 
-}
+    `top=${_O.top}`,
+  ];
+  const queryString = queryParams.join("&");
+  return baseURL + queryString;
+};
 
 // generate unique-ish ID
-export const generateKey = (name: string) => {
-  return `${name}${Math.floor(Math.random()*1000000)}`
-}
+export const generateKey = (avatarOptions: AvatarOptions) => {
+  const valuesFromAvatar = Object.entries(avatarOptions)
+    .map(([key, value]) => String(value))
+    .join("-");
+  return `avatar-${valuesFromAvatar}-${Date.now()}`;
+};
 
 export const defaultRobot: AvatarOptions = {
   name: "",
   baseColor: "94E044",
-  backgroundColor:"00D3DD",  
+  backgroundColor: "00D3DD",
   eyes: "round",
   face: "square01",
   mouth: "grill02",
   sides: "square",
   texture: "dots",
-  top: "lights"
-}
+  top: "lights",
+};
 
-// options for customization: 
+// options for customization:
 export const customizationOptions: CustomizationOptions[] = [
-  { label: "Eyes",
+  {
+    label: "Eyes",
     option: "eyes",
     values: [
       "eva",
@@ -52,10 +60,11 @@ export const customizationOptions: CustomizationOptions[] = [
       "roundFrame01",
       "roundFrame02",
       "sensor",
-      "shade01"
-    ]
+      "shade01",
+    ],
   },
-  { label: "Face",
+  {
+    label: "Face",
     option: "face",
     values: [
       "round01",
@@ -63,10 +72,11 @@ export const customizationOptions: CustomizationOptions[] = [
       "square01",
       "square02",
       "square03",
-      "square04"
-    ]
+      "square04",
+    ],
   },
-  { label: "Mouth",
+  {
+    label: "Mouth",
     option: "mouth",
     values: [
       "bite",
@@ -77,10 +87,11 @@ export const customizationOptions: CustomizationOptions[] = [
       "smile01",
       "smile02",
       "square01",
-      "square02"
-    ]
+      "square02",
+    ],
   },
-  { label: "Sides",
+  {
+    label: "Sides",
     option: "sides",
     values: [
       "antenna01",
@@ -89,8 +100,8 @@ export const customizationOptions: CustomizationOptions[] = [
       "cables02",
       "round",
       "square",
-      "squareAssymetric" 
-    ]
+      "squareAssymetric",
+    ],
   },
   // this actually doesn't seem to work from the API
   // { label: "Texture",
@@ -103,11 +114,12 @@ export const customizationOptions: CustomizationOptions[] = [
   //     "dirty02",
   //     "dots",
   //     "grunge01",
-  //     "grunge02" 
+  //     "grunge02"
   //   ]
   // },
-  { label: "Top",
-    option:"top",
+  {
+    label: "Top",
+    option: "top",
     values: [
       "antenna",
       "antennaCrooked",
@@ -117,10 +129,10 @@ export const customizationOptions: CustomizationOptions[] = [
       "horns",
       "lights",
       "pyramid",
-      "radar"
-    ]
-  }
-]
+      "radar",
+    ],
+  },
+];
 
 // color palette
 export const COLOR_PALETTE = [
@@ -163,4 +175,4 @@ export const COLOR_PALETTE = [
   "00D3DD",
   "45FFC8",
   "5100FF",
-]
+];

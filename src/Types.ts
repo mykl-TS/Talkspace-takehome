@@ -1,36 +1,45 @@
 export type AvatarOptions = {
-  name: string,
-  backgroundColor: string,
-  baseColor: string,
-  eyes:  string,
-  face:  string,    
-  mouth:  string,
-  sides: string,
-  texture: string,
-  top: string,
-} | undefined 
+  name: string;
+  backgroundColor: string;
+  baseColor: string;
+  eyes: string;
+  face: string;
+  mouth: string;
+  sides: string;
+  texture: string;
+  top: string;
+};
 
-export type AvatarURL = string | undefined
+export type AvatarURL = string | undefined;
 
 export interface Avatar {
-  url: AvatarURL
-  options: AvatarOptions  
+  url: AvatarURL | null;
+  options: AvatarOptions | null;
 }
 
 export interface OverrideOption {
-  name: "name" | "backgroundColor" | "baseColor" | "eyes" | "face" | "mouth" | "sides" | "texture" | "top"
-  value: string
+  name:
+    | "name"
+    | "backgroundColor"
+    | "baseColor"
+    | "eyes"
+    | "face"
+    | "mouth"
+    | "sides"
+    | "texture"
+    | "top";
+  value: string;
 }
 
 export type TabData = {
-  label:string,
-  option:string
-}
+  label: string;
+  option: string;
+};
 
 export interface CustomizationOptions {
-  label:string,
-  option:string 
-  values:string[]
+  label: string;
+  option: string;
+  values: string[];
 }
 
 export interface AvatarListItem {
@@ -38,4 +47,4 @@ export interface AvatarListItem {
   URL: string;
   name: string;
 }
-export type AvatarList = AvatarListItem[]
+export type AvatarList = AvatarListItem[];
