@@ -8,6 +8,7 @@ interface AvatarContextType {
 }
 
 interface AvatarListContextType {
+  // error and loading are added but not fully implemented could used for future use
   avatarList: AvatarList;
   setAvatarList: React.Dispatch<React.SetStateAction<AvatarList>>;
   loading: boolean;

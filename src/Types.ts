@@ -1,4 +1,5 @@
 export type AvatarOptions = {
+  //thought about using enums but didn't want to be so rigid
   name: string;
   backgroundColor: string;
   baseColor: string;
