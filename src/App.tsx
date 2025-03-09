@@ -16,19 +16,43 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const updateName = () => {
-    const _O = { ...avatarOptions };
-    _O.name = event?.target.value;
-    setAvatarOptions(_O);
+  const updateName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      if (!event.target.value.trim()) {
+        throw new Error("Name cannot be empty");
+      }
+      setError(null);
+      setAvatarOptions((prev) => ({
+        ...prev,
+        name: event.target.value,
+      }));
+    } catch (error) {
+      setError(
+        error instanceof Error ? error.message : "An unknown error occurred"
+      );
+      console.error("Failed to update name:", error);
+    }
   };
 
-  const handleSaveAvatar = () => {
+  const handleSaveAvatar = async () => {
     try {
-      saveAvatar(avatarOptions);
+      setError(null);
+      setLoading(true);
+
+      if (!avatarOptions.name.trim()) {
+        throw new Error("Name is required to save avatar");
+      }
+
+      await saveAvatar(avatarOptions);
       setAvatarList(useOnUpdateAvatarList());
       setAvatarOptions(defaultRobot);
     } catch (error) {
-      console.log(error);
+      setError(
+        error instanceof Error ? error.message : "Failed to save avatar"
+      );
+      console.error("Failed to save avatar:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
