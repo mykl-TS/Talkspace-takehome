@@ -28,18 +28,26 @@ export const generateKey = (avatarOptions: AvatarOptions) => {
   const valuesFromAvatar = Object.entries(avatarOptions)
     .map(([key, value]) => String(value))
     .join("-");
-  return `avatar-${valuesFromAvatar}-${Date.now()}`;
+  console.log(valuesFromAvatar);
+  return `avatar-${valuesFromAvatar}}`;
 };
 
 export const saveAvatar = (avatarOptions: AvatarOptions) => {
   const key = generateKey(avatarOptions);
   const url = buildURL(avatarOptions);
 
-  window.localStorage.setItem(
-    key,
-    JSON.stringify({ URL: url, name: avatarOptions.name })
+  const existingKeys = Object.keys(window.localStorage).filter((k) =>
+    k.startsWith("avatar-")
   );
-  return { key, url };
+  const isDuplicate = existingKeys.some((existingKey) => existingKey === key);
+
+  if (!isDuplicate) {
+    window.localStorage.setItem(
+      key,
+      JSON.stringify({ URL: url, name: avatarOptions.name })
+    );
+    return { key, url };
+  } // if duplicate, do nothing
 };
 export const defaultRobot: AvatarOptions = {
   name: "",
