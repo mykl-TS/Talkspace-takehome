@@ -10,21 +10,24 @@ import { buildURL, defaultRobot, saveAvatar } from "./Services";
 import RobotListItem from "./components/RobotListItem";
 import SaveButton from "./components/UI/SaveButton";
 
+type InputChangeHandler = (value: string) => void;
+
 function App() {
   const [avatarOptions, setAvatarOptions] = useState(defaultRobot);
   const [avatarList, setAvatarList] = useState(useOnUpdateAvatarList);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const updateName = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const updateName: InputChangeHandler = (value) => {
+    //update from change event for more type safety and reduced coupling
     try {
-      if (!event.target.value.trim()) {
+      if (!value.trim()) {
         throw new Error("Name cannot be empty");
       }
       setError(null);
       setAvatarOptions((prev) => ({
         ...prev,
-        name: event.target.value,
+        name: value,
       }));
     } catch (error) {
       setError(
