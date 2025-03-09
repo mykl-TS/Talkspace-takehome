@@ -31,6 +31,16 @@ export const generateKey = (avatarOptions: AvatarOptions) => {
   return `avatar-${valuesFromAvatar}-${Date.now()}`;
 };
 
+export const saveAvatar = (avatarOptions: AvatarOptions) => {
+  const key = generateKey(avatarOptions);
+  const url = buildURL(avatarOptions);
+
+  window.localStorage.setItem(
+    key,
+    JSON.stringify({ URL: url, name: avatarOptions.name })
+  );
+  return { key, url };
+};
 export const defaultRobot: AvatarOptions = {
   name: "",
   baseColor: "94E044",

@@ -6,13 +6,15 @@ import TextInput from "./components/UI/TextInput";
 import { useState } from "react";
 import { useOnUpdateAvatarList } from "./Hooks";
 import { AvatarContext, AvatarURLContext, AvatarListContext } from "./context";
-import { generateKey, buildURL, defaultRobot } from "./Services";
+import { buildURL, defaultRobot, saveAvatar } from "./Services";
 import RobotListItem from "./components/RobotListItem";
 import SaveButton from "./components/UI/SaveButton";
 
 function App() {
   const [avatarOptions, setAvatarOptions] = useState(defaultRobot);
   const [avatarList, setAvatarList] = useState(useOnUpdateAvatarList);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const updateName = () => {
     const _O = { ...avatarOptions };
@@ -20,14 +22,9 @@ function App() {
     setAvatarOptions(_O);
   };
 
-  const saveAvatar = (url: string, name: string) => {
-    console.log(event?.target);
+  const handleSaveAvatar = () => {
     try {
-      console.log("fire!!!");
-      window.localStorage.setItem(
-        generateKey(avatarOptions),
-        JSON.stringify({ URL: url, name: name })
-      );
+      saveAvatar(avatarOptions);
       setAvatarList(useOnUpdateAvatarList());
       setAvatarOptions(defaultRobot);
     } catch (error) {
@@ -39,14 +36,14 @@ function App() {
     <div className='app_container'>
       <AvatarContext.Provider value={{ avatarOptions, setAvatarOptions }}>
         <AvatarURLContext.Provider value={buildURL(avatarOptions)}>
-          <AvatarListContext.Provider value={{ avatarList, setAvatarList }}>
+          <AvatarListContext.Provider
+            value={{ avatarList, setAvatarList, loading, error }}
+          >
             <div className='main'>
               <div className='avatar_creator'>
                 <SaveButton
-                  disabled={avatarOptions?.name === "" ? true : false}
-                  handleOnClick={() => {
-                    saveAvatar(buildURL(avatarOptions), avatarOptions?.name);
-                  }}
+                  disabled={avatarOptions?.name === ""}
+                  handleOnClick={handleSaveAvatar}
                 >
                   +
                 </SaveButton>
@@ -56,6 +53,7 @@ function App() {
                   <TextInput
                     label=''
                     value={avatarOptions?.name || ""}
+                    avatarName={avatarOptions?.name || ""}
                     name='avatar_name'
                     placeholder='Name Me!'
                     handleOnChange={updateName}

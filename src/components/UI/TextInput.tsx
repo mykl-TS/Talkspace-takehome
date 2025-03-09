@@ -1,43 +1,40 @@
-import { useContext } from 'react'
-import { AvatarContext } from '../../context'
-import '../../styles/UI/textinput.css'
+import { useContext } from "react";
+import { AvatarContext } from "../../context";
+import "../../styles/UI/textinput.css";
 
 interface Props {
   name: string;
   label: string;
-  avatarName: string
-  placeholder?: string; 
+  avatarName: string;
+  placeholder?: string;
   className?: string;
   value: string;
-  handleOnChange: () => void
+  handleOnChange: () => void;
 }
 
 const TextInput = (props: Props) => {
-  const { 
-    name,
-    label,
-    placeholder,
-    className,
-    handleOnChange } = props
+  const { name, label, placeholder, className, handleOnChange } = props;
 
-  const {avatarOptions, setAvatarOptions} = useContext(AvatarContext)
+  const { avatarOptions, setAvatarOptions } = useContext(AvatarContext);
 
   return (
     <>
       <label>
         {label}
-        <input 
+        <input
           name={name}
           value={avatarOptions.name}
-          className={className ? className: ""}
-          type="Text"
+          className={className ? className : ""}
+          type='Text'
           placeholder={placeholder ? placeholder : ""}
-          onChange={() => {handleOnChange()}}
+          onChange={() => {
+            handleOnChange();
+          }}
           maxLength={25}
         />
       </label>
     </>
-  )
-}
+  );
+};
 
-export default TextInput
+export default TextInput;
