@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { AvatarContext } from "../../context";
 import "../../styles/UI/textinput.css";
 
 interface Props {
@@ -9,13 +7,11 @@ interface Props {
   placeholder?: string;
   className?: string;
   value: string;
-  handleOnChange: () => void;
+  handleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const TextInput = (props: Props) => {
-  const { name, label, placeholder, className, handleOnChange } = props;
-
-  const { avatarOptions, setAvatarOptions } = useContext(AvatarContext);
+  const { name, label, placeholder, value, className, handleOnChange } = props;
 
   return (
     <>
@@ -23,13 +19,11 @@ const TextInput = (props: Props) => {
         {label}
         <input
           name={name}
-          value={avatarOptions.name}
+          value={value}
           className={className ? className : ""}
           type='Text'
           placeholder={placeholder ? placeholder : ""}
-          onChange={() => {
-            handleOnChange();
-          }}
+          onChange={handleOnChange}
           maxLength={25}
         />
       </label>
