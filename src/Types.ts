@@ -39,3 +39,14 @@ export interface AvatarListItem {
   name: string;
 }
 export type AvatarList = AvatarListItem[]
+
+export interface AvatarContextType {
+  avatarOptions: AvatarOptions;
+  setAvatarOptions: React.Dispatch<React.SetStateAction<AvatarOptions>>;
+  saveAvatar: () => void;
+}
+
+export interface AvatarListContextType {
+  avatarList: AvatarList;
+  deleteAvatar: (keyName: string) => void;
+}

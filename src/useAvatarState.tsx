@@ -67,7 +67,8 @@ const useAvatarState = () => {
   };
 
   const deleteAvatar = (keyName: string) => {
-    dispatch({ type: "DELETE", payload: keyName });
+    dispatch({ type: "DELETE", payload: keyName }); // update avatarListState
+    // removes from local storage
     try {
       window.localStorage.removeItem(keyName);
     } catch (error) {
