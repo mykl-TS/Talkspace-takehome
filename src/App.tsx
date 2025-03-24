@@ -18,16 +18,15 @@ function App() {
     saveAvatar,
     deleteAvatar,
   } = useAvatarState();
-
+// Next Steps: Self-contain context providers, maybe wrap them. useRef for the name.  
   return (
     <div className="app_container">
-      <AvatarContext.Provider value={{ avatarOptions, setAvatarOptions }}>
+      <AvatarContext.Provider value={{ avatarOptions, setAvatarOptions, saveAvatar }}>
         <AvatarListContext.Provider value={{ avatarList, deleteAvatar }}>
           <div className="main">
             <div className="avatar_creator">
               <SaveButton
                 disabled={avatarOptions?.name === "" ? true : false}
-                handleOnClick={saveAvatar}
               >
                 +
               </SaveButton>
@@ -39,6 +38,7 @@ function App() {
                   value={avatarOptions?.name || ""}
                   name="avatar_name"
                   placeholder="Name Me!"
+                  // could also just access via context
                   handleOnChange={updateName}
                 />
               </div>
