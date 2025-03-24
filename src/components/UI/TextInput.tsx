@@ -8,7 +8,7 @@ interface Props {
   placeholder?: string; 
   className?: string;
   value: string;
-  handleOnChange: () => void
+  handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const TextInput = (props: Props) => {
@@ -31,7 +31,7 @@ const TextInput = (props: Props) => {
           className={className ? className: ""}
           type="Text"
           placeholder={placeholder ? placeholder : ""}
-          onChange={() => {handleOnChange()}}
+          onChange={handleOnChange}
           maxLength={25}
         />
       </label>

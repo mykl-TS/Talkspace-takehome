@@ -16,7 +16,7 @@ function App() {
   const [avatarOptions, setAvatarOptions] = useState(defaultRobot)
   const [avatarList, setAvatarList] = useState(useOnUpdateAvatarList)
 
-  const updateName = () => {
+  const updateName = (event: React.ChangeEvent<HTMLInputElement>) => {
     const _O = {...avatarOptions}
     _O.name = event?.target.value
     setAvatarOptions(_O)    
